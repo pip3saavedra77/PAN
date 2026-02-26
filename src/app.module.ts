@@ -7,6 +7,7 @@ import { ConfigModule } from '@nestjs/config';
 import * as Joi from 'joi';
 import { enviroments } from './enviroments';
 import { UsersModule } from './users/users.module';
+import { RolesModule } from './roles/roles.module';
 import config from './config';
 
 @Module({
@@ -24,9 +25,10 @@ import config from './config';
       }),
     }),
     DatabaseModule,
-    UsersModule
+    UsersModule,
+    RolesModule
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }
