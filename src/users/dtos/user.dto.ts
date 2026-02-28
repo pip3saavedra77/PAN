@@ -1,9 +1,8 @@
 /* eslint-disable prettier/prettier */
-import { IsString, IsNotEmpty } from "class-validator";
+import { IsString, IsNotEmpty, IsArray, IsNumber, IsOptional } from "class-validator";
 import { PartialType, ApiProperty } from "@nestjs/swagger";
-import { Type } from "class-transformer";
 
-export class CreateUserDto {   
+export class CreateUserDto {
     @IsString()
     @IsNotEmpty()
     @ApiProperty()
@@ -33,5 +32,12 @@ export class CreateUserDto {
     @IsNotEmpty()
     @ApiProperty()
     readonly miTest2: string;
+
+    // FIXED: Campo para asignar roles al crear usuario (opcional para retrocompatibilidad)
+    @IsArray()
+    @IsNumber({}, { each: true })
+    @IsOptional()
+    @ApiProperty({ type: [Number], required: false, description: 'IDs de roles a asignar' })
+    readonly roleIds?: number[];
 }
-export class UpdateUserDto extends PartialType(CreateUserDto){}
+export class UpdateUserDto extends PartialType(CreateUserDto) { }
